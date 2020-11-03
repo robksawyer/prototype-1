@@ -13,7 +13,6 @@ export default function Home() {
         <title>prototype</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <CustomCursor />
       <main className={`${styles.main} flex flex-grow flex-col`}>
         <MainScene />
       </main>
@@ -23,6 +22,7 @@ export default function Home() {
       >
         Powered by passion
       </footer>
+      <CustomCursor />
     </div>
   )
 }
