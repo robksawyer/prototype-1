@@ -9,8 +9,8 @@
 import React, { Fragment, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './CustomCursor.module.css'
-import { useCustomCursor } from '../../hooks/useCustomCursor'
+import styles from './CursorCircle.module.css'
+import { useCustomAnimatedCursor } from '../../hooks/useCustomAnimatedCursor'
 
 const CursorCircle = (props) => {
   const {
@@ -18,36 +18,40 @@ const CursorCircle = (props) => {
     className,
     variant,
     children,
-    cursorColorInner = 'rgba(220, 90, 90, 1)',
-    cursorColorOuter = 'rgba(220, 90, 90, 0.4)',
+    cursorColorInner = 'rgba(255, 255, 255, 1)',
+    cursorColorOuter = 'rgba(255, 255, 255, 0.75)',
     innerSize = 8,
-    outerSize = 8,
-    outerScale = 5,
+    outerSize = 22,
+    outerScale = 1,
     innerScale = 0.7,
   } = props
 
   const cursorOuterRef = useRef()
   const cursorInnerRef = useRef()
 
-  const { isActiveClickable, isActive, isVisible } = useCustomCursor({
+  const { isActiveClickable, isActive, isVisible } = useCustomAnimatedCursor({
     innerRef: cursorInnerRef,
     outerRef: cursorOuterRef,
   })
 
   useEffect(() => {
     if (isActive) {
-      cursorInnerRef.current.style.transform = `scale(${innerScale})`
-      cursorOuterRef.current.style.transform = `scale(${outerScale})`
+      cursorInnerRef.current.style.transform = `scale(${innerScale}) translate(-67%, -65%)`
+      cursorOuterRef.current.style.transform = `scale(${outerScale}) translate(-50%, -50%)`
     } else {
-      cursorInnerRef.current.style.transform = 'scale(1)'
-      cursorOuterRef.current.style.transform = 'scale(1)'
+      cursorInnerRef.current.style.transform = 'scale(1) translate(-50%, -50%)'
+      cursorOuterRef.current.style.transform = 'scale(1) translate(-50%, -50%)'
     }
   }, [innerScale, outerScale, isActive])
 
   useEffect(() => {
     if (isActiveClickable) {
-      cursorInnerRef.current.style.transform = `scale(${innerScale * 1.3})`
-      cursorOuterRef.current.style.transform = `scale(${outerScale * 1.4})`
+      cursorInnerRef.current.style.transform = `scale(${
+        innerScale * 1.3
+      }) translate(-50%, -50%)`
+      cursorOuterRef.current.style.transform = `scale(${
+        outerScale * 1.5
+      }) translate(-50%, -50%)`
     }
   }, [innerScale, outerScale, isActiveClickable])
 
@@ -63,13 +67,17 @@ const CursorCircle = (props) => {
 
   const styles = {
     cursor: {
+      cursor: 'none',
       zIndex: 999,
+      mixBlendMode: 'difference',
       position: 'fixed',
       opacity: 1,
       pointerEvents: 'none',
       transition: 'opacity 0.15s ease-in-out, transform 0.15s ease-in-out',
+      backgroundColor: 'transparent',
     },
     cursorInner: {
+      mixBlendMode: 'difference',
       position: 'fixed',
       borderRadius: '50%',
       width: innerSize,
@@ -79,12 +87,15 @@ const CursorCircle = (props) => {
       transition: 'opacity 0.15s ease-in-out, transform 0.25s ease-in-out',
     },
     cursorOuter: {
+      mixBlendMode: 'difference',
       position: 'fixed',
       borderRadius: '50%',
       pointerEvents: 'none',
       width: outerSize,
       height: outerSize,
-      backgroundColor: cursorColorOuter,
+      backgroundColor: 'transparent',
+      borderWidth: '1px',
+      borderColor: cursorColorOuter,
       transition: 'opacity 0.15s ease-in-out, transform 0.15s ease-in-out',
     },
   }
@@ -94,14 +105,6 @@ const CursorCircle = (props) => {
       <div ref={cursorOuterRef} style={styles.cursorOuter} />
       <div ref={cursorInnerRef} style={styles.cursorInner} />
       <style jsx global>{`
-        /* play with vars for different effets */
-        :root {
-          --color-cursor: 220, 90, 90;
-          --cursor-outline-shade: 0.3;
-          --cursor-size: 10px;
-          --cursor-outline-size: 12px;
-        }
-
         html,
         body {
           cursor: none;
@@ -110,34 +113,6 @@ const CursorCircle = (props) => {
         html *,
         body * {
           cursor: none;
-        }
-
-        #cursor-dot,
-        #cursor-dot-outline {
-          z-index: 999;
-          pointer-events: none;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          border-radius: 50%;
-          opacity: 0;
-          transform: translate(-50%, -50%);
-          transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
-        }
-
-        #cursor-dot {
-          width: var(--cursor-size);
-          height: var(--cursor-size);
-          background-color: rgba(var(--color-cursor), 1);
-        }
-
-        #cursor-dot-outline {
-          width: var(--cursor-outline-size);
-          height: var(--cursor-outline-size);
-          background-color: rgba(
-            var(--color-cursor),
-            var(--cursor-outline-shade)
-          );
         }
       `}</style>
     </Fragment>

@@ -1,12 +1,14 @@
 /**
  * @file CursorCircleAlt.js
+ *
+ * @see https://codepen.io/andrewchmr-the-vuer/pen/GRZjbbB
  */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './CursorCircleAlt.module.css'
 
-import { useCustomCursor } from '../../hooks/useCustomCursorAlt'
+import { useCustomCursor } from '../../hooks/useCustomCursor'
 
 const CursorCircleAlt = (props) => {
   const { tagName: Tag, variant, children } = props
@@ -33,12 +35,13 @@ const CursorCircleAlt = (props) => {
         .cursor {
           width: 40px;
           height: 40px;
-          border: 2px solid #fefefe;
-          border-radius: 100%;
           position: fixed;
           transform: translate(-50%, -50%);
           pointer-events: none;
+          border: 2px solid #fefefe;
+          border-radius: 100%;
           transition: all 150ms ease;
+          background: transparent;
           transition-property: background-color, opacity, transform,
             mix-blend-mode;
           z-index: 9999;

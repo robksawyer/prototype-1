@@ -3,9 +3,9 @@ import dynamic from 'next/dynamic'
 import styles from '../styles/Home.module.css'
 
 import MainScene from '../components/MainScene'
-// const CursorCircle = dynamic(() => import('../components/CursorCircle'), {
-//   ssr: false,
-// })
+const CursorCircle = dynamic(() => import('../components/CursorCircle'), {
+  ssr: false,
+})
 const CursorCircleAlt = dynamic(() => import('../components/CursorCircleAlt'), {
   ssr: false,
 })
@@ -30,8 +30,8 @@ export default function Home() {
           Powered by passion
         </a>
       </footer>
-      {/* <CursorCircle /> */}
-      <CursorCircleAlt />
+      <CursorCircle />
+      {/* <CursorCircleAlt /> */}
     </div>
   )
 }
