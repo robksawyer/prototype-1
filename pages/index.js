@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 import MainScene from '../components/MainScene'
+import CustomCursor from '../components/CustomCursor'
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
         <title>prototype</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <CustomCursor />
       <main className={`${styles.main} flex flex-grow flex-col`}>
         <MainScene />
       </main>
