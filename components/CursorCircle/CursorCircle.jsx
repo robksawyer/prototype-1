@@ -1,6 +1,5 @@
 /**
- * @file CustomCursor.js
- * Handles replacing the global app cursor
+ * @file CursorCircle.js
  *
  * Beware: If using a custom url image for cursor
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Basic_User_Interface/Using_URL_values_for_the_cursor_property?redirectlocale=en-US&redirectslug=CSS%2Fcursor%2Furl
@@ -13,7 +12,7 @@ import PropTypes from 'prop-types'
 import styles from './CustomCursor.module.css'
 import { useCustomCursor } from '../../hooks/useCustomCursor'
 
-const CustomCursor = (props) => {
+const CursorCircle = (props) => {
   const {
     tagName: Tag,
     className,
@@ -145,7 +144,7 @@ const CustomCursor = (props) => {
   )
 }
 
-CustomCursor.propTypes = {
+CursorCircle.propTypes = {
   tagName: PropTypes.string,
   className: PropTypes.string,
   variant: PropTypes.oneOf(['default']),
@@ -158,4 +157,4 @@ CustomCursor.propTypes = {
   innerScale: PropTypes.number,
 }
 
-export default CustomCursor
+export default CursorCircle

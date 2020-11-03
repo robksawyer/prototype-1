@@ -1,5 +1,5 @@
 /**
- * CustomCursor.jsx
+ * CursorCircle.jsx
  */
 import React from 'react';
 // import generateProps from 'react-generate-props'
@@ -12,11 +12,11 @@ import { linkTo } from '@storybook/addon-links';
 // import { StorybookRouter } from '../../mocks/next/router'
 
 // Component(s)
-import CustomCursor from './CustomCursor';
+import CursorCircle from './CursorCircle';
 
 // Generate some stub properties
 // generateProps.init()
-// const props = generateProps(CustomCursor);
+// const props = generateProps(CursorCircle);
 
 // Decorators
 const CenterDecorator = storyFn => (
@@ -29,9 +29,9 @@ const CenterDecorator = storyFn => (
 //   <StorybookRouter>{storyFn()}</StorybookRouter>
 // )
 
-storiesOf('CustomCursor', module)
+storiesOf('CursorCircle', module)
   // .addDecorator(RouterDecorator)
   .addDecorator(CenterDecorator)
   .add('with required props', () => (
-    <CustomCursor />
+    <CursorCircle />
   ));

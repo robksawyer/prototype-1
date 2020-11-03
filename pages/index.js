@@ -1,8 +1,14 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import styles from '../styles/Home.module.css'
 
 import MainScene from '../components/MainScene'
-import CustomCursor from '../components/CustomCursor'
+// const CursorCircle = dynamic(() => import('../components/CursorCircle'), {
+//   ssr: false,
+// })
+const CursorCircleAlt = dynamic(() => import('../components/CursorCircleAlt'), {
+  ssr: false,
+})
 
 export default function Home() {
   return (
@@ -18,11 +24,14 @@ export default function Home() {
       </main>
 
       <footer
-        className={`${styles.footer} w-full h-50 bg-black text-white px-40 flex align-center items-center justify-center uppercase`}
+        className={`${styles.footer} select-none w-full h-50 bg-black text-white px-40 flex align-center items-center justify-center uppercase`}
       >
-        Powered by passion
+        <a href="http://www.iamrobksawyer.com" target="_blank">
+          Powered by passion
+        </a>
       </footer>
-      <CustomCursor />
+      {/* <CursorCircle /> */}
+      <CursorCircleAlt />
     </div>
   )
 }

@@ -34,7 +34,6 @@ const useEventListener = (eventName, handler, element = document) => {
  */
 export const useCustomCursor = ({ innerRef, outerRef }) => {
   const { isMobile } = useMobileDetect()
-  console.log('isMobile', isMobile)
   if (!process.browser || isMobile()) {
     return {
       isActive: false,
@@ -86,10 +85,14 @@ export const useCustomCursor = ({ innerRef, outerRef }) => {
 
   if (process.browser) {
     useEventListener('mousemove', onMouseMove, document)
+    useEventListener('pointermove', onMouseMove, document)
     useEventListener('mousedown', onMouseDown, document)
+    useEventListener('pointerdown', onMouseDown, document)
     useEventListener('mouseup', onMouseUp, document)
+    useEventListener('pointerup', onMouseUp, document)
     useEventListener('mouseenter', onMouseEnter, document)
     useEventListener('mouseleave', onMouseLeave, document)
+    useEventListener('pointercancel', onMouseLeave, document)
 
     // Custom cursor chnages state when hovering on elements with 'data-hover'.
     // document.querySelectorAll('[data-hover]').forEach((link) => {

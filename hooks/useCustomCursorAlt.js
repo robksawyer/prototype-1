@@ -3,14 +3,19 @@
  */
 import { useState, useEffect } from 'react'
 import useMobileDetect from 'use-mobile-detect-hook'
+import classNames from 'classnames'
 
-const isMobile = () => {
-  const ua = navigator.userAgent
-  return /Android|Mobi/i.test(ua)
-}
-
-export const useCustomCursorAlt = () => {
-  if (typeof navigator !== 'undefined' && isMobile()) return null
+export const useCustomCursor = () => {
+  const { isMobile } = useMobileDetect()
+  if (!process.browser || isMobile()) {
+    return {
+      position: {
+        x: 0,
+        y: 0,
+      },
+      className: '',
+    }
+  }
 
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [clicked, setClicked] = useState(false)
@@ -25,18 +30,30 @@ export const useCustomCursorAlt = () => {
 
   const addEventListeners = () => {
     document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('pointermove', onMouseMove)
     document.addEventListener('mouseenter', onMouseEnter)
     document.addEventListener('mouseleave', onMouseLeave)
+    document.addEventListener('pointercancel', onMouseLeave)
     document.addEventListener('mousedown', onMouseDown)
+    document.addEventListener('pointerdown', onMouseDown)
     document.addEventListener('mouseup', onMouseUp)
+    document.addEventListener('pointerup', onMouseUp)
+    document.addEventListener('click', onClick)
+    document.addEventListener('dblclick', onDoubleClick)
   }
 
   const removeEventListeners = () => {
     document.removeEventListener('mousemove', onMouseMove)
+    document.removeEventListener('pointermove', onMouseMove)
     document.removeEventListener('mouseenter', onMouseEnter)
     document.removeEventListener('mouseleave', onMouseLeave)
+    document.removeEventListener('pointercancel', onMouseLeave)
     document.removeEventListener('mousedown', onMouseDown)
+    document.removeEventListener('pointerdown', onMouseDown)
     document.removeEventListener('mouseup', onMouseUp)
+    document.removeEventListener('pointerup', onMouseUp)
+    document.removeEventListener('click', onClick)
+    document.removeEventListener('dblclick', onDoubleClick)
   }
 
   const onMouseMove = (e) => {
@@ -49,6 +66,16 @@ export const useCustomCursorAlt = () => {
 
   const onMouseUp = () => {
     setClicked(false)
+  }
+
+  const onClick = () => {
+    setClicked(true)
+    setTimeout(() => setClicked(false), 50)
+  }
+
+  const onDoubleClick = () => {
+    setClicked(true)
+    setTimeout(() => setClicked(false), 100)
   }
 
   const onMouseLeave = () => {
@@ -66,16 +93,14 @@ export const useCustomCursorAlt = () => {
     })
   }
 
-  const cursorClasses = classNames('cursor', {
+  const className = classNames('cursor', {
     'cursor--clicked': clicked,
     'cursor--hidden': hidden,
     'cursor--link-hovered': linkHovered,
   })
 
-  return (
-    <div
-      className={cursorClasses}
-      style={{ left: `${position.x}px`, top: `${position.y}px` }}
-    />
-  )
+  return {
+    position,
+    className,
+  }
 }
